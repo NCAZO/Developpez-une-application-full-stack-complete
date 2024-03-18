@@ -1,0 +1,121 @@
+.container .content .back button {
+    position: absolute;
+    top: 135px;
+    left: 25px;
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    cursor: pointer;
+    transition: transform .1s;
+}
+
+.container .content .back button:hover {
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.container .content .back button img {
+    width: 80px;
+}
+
+.container .content .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.container .content .form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+}
+
+.container .content .form select {
+    width: 290px;
+    padding: 5px;
+    height: 30px;
+    margin-bottom: 20px;
+    border: 1px solid #7453E8;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    appearance: none;
+}
+
+.container .content .form input {
+    width: 280px;
+    padding: 5px;
+    height: 30px;
+    margin-bottom: 20px;
+    border: 1px solid #7453E8;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.container .content .form textarea {
+    width: 280px;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #7453E8;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.container .content .form mat-form-field {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.container .content .form .form-group input {
+    width: 250px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.container .content .form .action-buttons button {
+    padding: 10px;
+    background: #7453E8;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: transform .1s;
+}
+
+.container .content .form .action-buttons button:hover {
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+
+    .container .header {
+        display: flex;
+        justify-content: center;
+    }
+
+    .container .header img {
+        width: 250px;
+        position: relative;
+        top: 30px;
+    }
+
+    .container .header hr {
+        display: none;
+    }
+
+    .container .content .back button img {
+        position: absolute;
+        top: -135px;
+        left: -15px;
+    }
+}

@@ -1,12 +1,13 @@
 .container .header {
     width: 100%;
-}
-
-.container .header img {
+    border-bottom: 1px solid black;
+  }
+  
+  .container .header img {
     width: 200px;
-}
-
-.container .content .back button {
+  }
+  
+  .container .content .back img {
     position: absolute;
     top: 135px;
     left: 25px;
@@ -18,86 +19,79 @@
     background: white;
     cursor: pointer;
     transition: transform .1s;
-}
-
-.container .content .back button:hover {
+  }
+  
+  .container .content .back img:hover {
     -ms-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
-
-.container .content .back button img {
-    width: 80px;
-}
-
-.container .content .form {
+  }
+  
+  .container .content .form {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
-}
-
-.container .content .form h2 {
+  }
+  
+  .container .content .form h2 {
     font-size: 1.8rem;
     margin-bottom: 50px;
-}
-
-.container .content .form .form-group {
+  }
+  
+  .container .content .form .form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.container .content .form .form-group label {
+  }
+  
+  .container .content .form .form-group label {
     font-size: 1.1rem;
-}
-
-.container .content .form .form-group input {
+  }
+  
+  .container .content .form .form-group input {
     width: 250px;
     height: 40px;
     border: 1px solid black;
     border-radius: 5px;
     margin-bottom: 30px;
-}
-
-.container .content .form .action-buttons button {
-    padding: 5px;
-    background: #7550EC;
+  }
+  
+  .container .content .form .action-buttons button {
+    padding: 10px;
+    background: #7453E8;
     width: 100px;
     border: none;
     border-radius: 5px;
     color: white;
     cursor: pointer;
     transition: transform .1s;
-}
-
-.container .content .form .action-buttons button:hover {
+  }
+  
+  .container .content .form .action-buttons button:hover {
     -ms-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
+  }
 
 
-@media (max-width: 426px) {
+@media (max-width: 768px) {
 
     .container .header {
-        display: flex;
-        justify-content: center;
+      display: flex;
+      justify-content: center;
+      border: none;
     }
-
+  
     .container .header img {
-        width: 250px;
-        position: relative;
-        top: 30px;
+      width: 250px;
+      position: relative;
+      top: 65px;
     }
-
-    .container .header hr {
-        display: none;
+  
+    .container .content .back img {
+      position: absolute;
+      top: 15px;
+      left: 20px;
     }
-
-    .container .content .back button img {
-        position: absolute;
-        top: -135px;
-        left: -15px;
-    }
-}
+  }

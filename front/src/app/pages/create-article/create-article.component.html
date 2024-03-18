@@ -1,0 +1,30 @@
+<div class="container">
+    <app-header></app-header>
+
+    <div class="content">
+        <div class="back">
+            <button (click)="goBack()">
+                <img src="../../../assets/images/fleche.png" alt="fleche">
+            </button>
+        </div>
+
+        <div class="form">
+            <h2>Créer un nouvel article</h2>
+
+
+            <select name="" id="" aria-placeholder="dd">
+                <option value="" selected disabled hidden>d</option>
+                <option value="">dd</option>
+                <option value="">ddd</option>
+            </select>
+
+            <input type="text" placeholder="Titre de l'article">
+
+            <textarea name="" id="" cols="30" rows="10" placeholder="Contenu de l'article"></textarea>
+
+            <div class="action-buttons">
+                <button (click)="onSubmit()">Créer</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,26 +1,71 @@
 <div class="container">
-    <div class="header">
-        <img src="../../../assets/images/logo_p6.png" alt="logo">
-        <div class="header-content">
-            <button>Articles</button>
-
-            <button>Thèmes</button>
-
-            <img src="../../../assets/images/utilisateur.png" alt="user">
-            <!-- <img class="menu-tel" src="../../../assets/images/menu.png" alt="menu"> -->
-            <aside>dd</aside>
-        </div>
-    </div>
-
+    <app-header></app-header>
+    
     <div class="content">
         <div class="content-header">
-            <button>Créer un article</button>
+            <button (click)="createArticle()">Créer un article</button>
             <!-- <label for="">Trier par</label> -->
             <img src="../../../assets/images/trier-par-ordre-croissant.png" alt="">
         </div>
 
-        <div class="feed">
 
-        </div>
+        <ul class="cards">
+
+            <li class="cards_item">
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card_title">Titre de l'article</h2>
+                        <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                            sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
+                            nisi maxime vero ullam sit quos corporis non!</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="cards_item">
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card_title">Titre de l'article</h2>
+                        <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                            sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
+                            nisi maxime vero ullam sit quos corporis non!</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="cards_item">
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card_title">Titre de l'article</h2>
+                        <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                            sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
+                            nisi maxime vero ullam sit quos corporis non!</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="cards_item">
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card_title">Titre de l'article</h2>
+                        <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                            sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
+                            nisi maxime vero ullam sit quos corporis non!</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="cards_item">
+                <div class="card">
+                    <div class="card_content">
+                        <h2 class="card_title">Titre de l'article</h2>
+                        <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
+                            sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
+                            nisi maxime vero ullam sit quos corporis non!</p>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
     </div>
 </div>

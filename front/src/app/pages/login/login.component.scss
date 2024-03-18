@@ -1,12 +1,13 @@
 .container .header {
   width: 100%;
+  border-bottom: 1px solid black;
 }
 
 .container .header img {
   width: 200px;
 }
 
-.container .content .back button {
+.container .content .back img {
   position: absolute;
   top: 135px;
   left: 25px;
@@ -20,14 +21,10 @@
   transition: transform .1s;
 }
 
-.container .content .back button:hover {
+.container .content .back img:hover {
   -ms-transform: scale(1.1);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-.container .content .back button img {
-  width: 80px;
 }
 
 .container .content .form {
@@ -61,8 +58,8 @@
 }
 
 .container .content .form .action-buttons button {
-  padding: 5px;
-  background: #7550EC;
+  padding: 10px;
+  background: #7453E8;
   width: 100px;
   border: none;
   border-radius: 5px;
@@ -78,26 +75,23 @@
 }
 
 
-@media (max-width: 426px) {
+@media (max-width: 768px) {
 
   .container .header {
     display: flex;
     justify-content: center;
+    border: none;
   }
 
   .container .header img {
     width: 250px;
     position: relative;
-    top: 30px;
+    top: 65px;
   }
 
-  .container .header hr {
-    display: none;
-  }
-
-  .container .content .back button img {
+  .container .content .back img {
     position: absolute;
-    top: -135px;
-    left: -15px;
+    top: 15px;
+    left: 20px;
   }
 }
