@@ -1,27 +1,3 @@
-.container .content .back button {
-    position: absolute;
-    top: 135px;
-    left: 25px;
-    display: flex;
-    justify-content: center;
-    width: 80px;
-    border: none;
-    border-radius: 50px;
-    background: white;
-    cursor: pointer;
-    transition: transform .1s;
-}
-
-.container .content .back button:hover {
-    -ms-transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
-
-.container .content .back button img {
-    width: 80px;
-}
-
 .container .content .form {
     display: flex;
     flex-direction: column;

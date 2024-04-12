@@ -15,6 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { CreateArticleComponent } from './pages/create-article/create-article.component';
 import {MatSelectModule} from '@angular/material/select';
+import { HeaderAuthComponent } from './headers/header-auth/header-auth.component';
+import { HeaderArticlesComponent } from './headers/header-articles/header-articles.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {MatSelectModule} from '@angular/material/select';
     SessionComponent,
     FooterComponent,
     HeaderComponent,
-    CreateArticleComponent
+    CreateArticleComponent,
+    HeaderAuthComponent,
+    HeaderArticlesComponent
   ],
   
   imports: [
