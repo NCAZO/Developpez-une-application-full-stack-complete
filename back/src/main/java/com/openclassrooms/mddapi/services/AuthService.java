@@ -33,8 +33,7 @@ public class AuthService {
 	}
 
 	public static boolean isValidEmail(String email) {
-		// Utiliser une expression régulière pour vérifier la conformité de l'adresse
-		// e-mail
+		// Utiliser une expression régulière pour vérifier la conformité de l'adresse e-mail
 		String regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]+$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(email);

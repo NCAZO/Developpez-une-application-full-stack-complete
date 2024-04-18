@@ -15,7 +15,7 @@ public class ArticleService {
 	private ArticleRepository articleRepository;
 	
 	public List<Article>getAllArticle(){
-		return articleRepository.getAllArticle();
+		return (List<Article>) articleRepository.findAll();
 	}
 	
 	public Article createArticle(Article createArticle) {
