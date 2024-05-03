@@ -6,14 +6,17 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.openclassrooms.mddapi.models.User;
+import java.util.List;
+
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-	
-	public Optional<User> findById(Long id);
-	
-	public Optional<User> findByEmail(String email);
-    
-    public User findByUsername(String username);
+//	Optional<User> findByName(String name);
+
+//	  Boolean existsByUsername(String username);
+	  
+	  Optional<User>  findByEmail(String email);
+
+	  Boolean existsByEmail(String email);
 
 }

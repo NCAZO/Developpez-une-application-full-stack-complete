@@ -1,90 +1,152 @@
 package com.openclassrooms.mddapi.services;
 
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import java.time.Instant;
+import java.util.Date;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.openclassrooms.mddapi.dto.JwtAuthentificationResponseDTO;
-import com.openclassrooms.mddapi.dto.ResponseDTO;
+import com.openclassrooms.mddapi.dto.request.LoginRequest;
+import com.openclassrooms.mddapi.dto.request.RegisterRequest;
+import com.openclassrooms.mddapi.dto.response.JwtResponse;
+import com.openclassrooms.mddapi.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.repository.UserRepository;
-import com.openclassrooms.mddapi.request.SignUpRequest;
+
+import jakarta.validation.Valid;
 
 @Service
 public class AuthService {
+	
+	private final AuthenticationManager authenticationManager;
+//    private final JwtUtils jwtUtils;
+	private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-	@Autowired
-	private UserRepository userRepository;
-
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-	@Autowired
-	private JwtService jwtService;
-
-	public Optional<User> findUserByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
-
-	public static boolean isValidEmail(String email) {
-		// Utiliser une expression régulière pour vérifier la conformité de l'adresse e-mail
-		String regex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]+$";
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(email);
-
-		// Retourner le résultat de la correspondance
-		return matcher.matches();
-	}
-
-	public ResponseEntity<ResponseDTO> register(User user) {
-
-		User newUser = new User();
-		newUser.setUsername(user.getUsername());
-		newUser.setEmail(user.getEmail());
-
-		newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-
+    public AuthService(AuthenticationManager authenticationManager,
+            PasswordEncoder passwordEncoder,
+//            JwtUtils jwtUtils,
+            JwtService jwtService,
+            UserService userService) {
+        this.authenticationManager = authenticationManager;
+//        this.jwtUtils = jwtUtils;
+        this.jwtService = jwtService;
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
+    }
+    
+//    @PostMapping("/register")
+//    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
+//        if (userService.existsByEmail(request.getEmail())) {
+//            return ResponseEntity
+//                    .badRequest()
+//                    .body(new MessageResponse("Error: Email is already taken!"));
+//        }
+//
+//	    Long time = Date.from(Instant.now()).getTime();
+//        
+//        // Create new user's account
+//        User newUser = new User();
+//        newUser.setId(null);
+//        newUser.setName(request.getName());
+//		newUser.setEmail(request.getEmail());
+//		newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+//		
 //		newUser.setCreated_at(new Date(time));
-//		newUser.setUpdated_at(new Date(time));
+//	    newUser.setUpdated_at(new Date(time));
+//        
+//        userService.createUser(newUser);
+//
+//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+//    }
 
-		// Vérifier si l'email est déjà utilisé
-		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
-		if (existingUser.isPresent()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseDTO(400, "L'email est déjà utilisé"));
-		}
+//	public ResponseEntity<AuthResponse> register(RegisterRequest request) {
+//		
+//		try {
+//			boolean userExists = userService.isUserExistByEmail(request.getEmail());
+//	        if (userExists) {
+//	        	return new ResponseEntity<AuthResponse>(HttpStatus.CONFLICT);
+//	        }
+//				
+//			User newUser = new User();
+//			newUser.setName(request.getName());
+//			newUser.setEmail(request.getEmail());
+//			newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+//	        
+//	        userService.createUser(newUser);
+//	        
+//	        //Générer token ??
+//	       return jwtService.generateToken(newUser);
+//	        //return token ?
+//		}
+//		catch (Exception e) {
+//			return new ResponseEntity<AuthResponse>(HttpStatus.BAD_REQUEST);
+//		}
+//    }
 
-		// Vérifier si l'email est conforme
-		if (!isValidEmail(user.getEmail())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new ResponseDTO(400, "L'email n'est pas conforme"));
-		}
+//    public ResponseEntity<AuthResponse> login(LoginRequest request) {
+//    	
+//    	User newUser = new User();
+//		newUser.setEmail(request.getEmail());
+//		newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+//    
+//        User user = userService.getUserByEmail(newUser.getEmail());
+////        if (user == null) {
+////        	return new ResponseEntity<AuthResponse>(HttpStatus.NOT_FOUND);
+////        }
+//
+//        if (user == null || !userService.checkPassword(user ,newUser.getPassword())) {
+//            return new ResponseEntity<AuthResponse>(HttpStatus.NOT_FOUND);
+//        }
+//    
+////        ResponseEntity<AuthResponse> tokenObject = jwtService.generateToken(user);
+////        return ResponseEntity.ok(tokenObject);
+//		
+//
+//	       return jwtService.generateToken(newUser);
+//    }
+    
+//    @PostMapping("/login")
+//    public ResponseEntity<?>login(@Valid @RequestBody LoginRequest request) {
+//
+//        Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(request.getEmail(),
+//                		request.getPassword()));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        String jwt = jwtService.generateToken(authentication);
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//
+////        boolean isAdmin = false;
+////        User user = this.userService.findByEmail(userDetails.getUsername()).orElse(null);
+////        if (user != null) {
+////            isAdmin = user.isAdmin();
+////        }
+//
+//        return ResponseEntity.ok(new JwtResponse(
+//        		jwt,
+//                userDetails.getId(),
+//                userDetails.getUsername()));
+//    }
 
-		// Enregistrer le nouvel utilisateur
-		userRepository.save(newUser);
+    public User getMe(String name) {
+		return null;
+//        return userRepository.findByName(name);
+    }
 
-		// Retourner une réponse 200 OK avec message
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO(200, "Utilisateur enregistré avec succès !"));
-	}
-
-	public ResponseEntity<JwtAuthentificationResponseDTO> login(SignUpRequest request) throws Exception {
-		User user = new User();
-		user.setEmail(request.getEmail());
-		user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-		Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
-		if (!userOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-					.body(new JwtAuthentificationResponseDTO(null, "Rejeté", "Email ou mot de passe invalide !"));
-		}
-
-		String jwt = jwtService.generateToken(userOptional.get());
-		return ResponseEntity.ok(new JwtAuthentificationResponseDTO(jwt));
-	}
-
+    public User getUserById(Integer id) {
+		return null;
+//        if(!userRepository.findById(id).isPresent()) {
+//            throw new RuntimeException("User not found");
+//        }
+//        return userRepository.findById(id).get();
+    }
 }

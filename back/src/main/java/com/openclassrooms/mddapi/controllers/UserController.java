@@ -1,40 +1,35 @@
 package com.openclassrooms.mddapi.controllers;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.http.HttpStatus;
 
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.UserService;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Objects;
 
-import jakarta.validation.Valid;
+
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
+    private final UserService userService;
 
-	@Autowired
-	UserService userService;
-	
-	User getUser(){
-		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-	}
-	
-    ResponseEntity<User> updateUser(@RequestBody @Valid User user) {
-        User updateUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<User> byEmail = userService.findUserByEmail(updateUser.getEmail());
-        if (byEmail.isPresent() && !Objects.equals(updateUser.getEmail(), user.getEmail())) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        updateUser = userService.updateUser(updateUser);
-        return ResponseEntity.ok(updateUser);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
-	
+    
+	@GetMapping("/{id}")
+	public ResponseEntity<User> getUserById(@PathVariable Long id) {
+	    User userFind = userService.getUserById(id);
+
+	    if (userFind != null) {
+	        return ResponseEntity.ok(userFind);
+	    } else {
+	        return ResponseEntity.notFound().build();
+	    }
+	}
 }

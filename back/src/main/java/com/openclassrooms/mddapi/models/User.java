@@ -1,45 +1,62 @@
 package com.openclassrooms.mddapi.models;
 
 import java.util.Collection;
+import java.util.Date;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Builder;
 
-import org.springframework.lang.NonNull;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
+@Builder
 @SuppressWarnings("serial")
-@Entity(name = "user")
-@Table(name = "user", uniqueConstraints = {
-	    @UniqueConstraint(columnNames = "email")
-	})
-public class User implements UserDetails {
-	
+@Entity
+@Table(name="users")
+public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
-	@NonNull
-	private String username;
-	
-	@Column
-	@NonNull
 	private String email;
 	
+	@Column String name;
+	
+//	@JsonIgnore
 	@Column
-	@NonNull
 	private String password;
+	
+	@Column
+	private Date created_at;
+	
+	@Column
+	private Date updated_at;
+	
+	public User(String email, String name, String password) {
+		super();
+		this.email = email;
+		this.name = name;
+		this.password = password;
+	}
 
 	
-	
-	
+	public User(Long id, String email, String name, String password, Date created_at, Date updated_at) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -56,22 +73,32 @@ public class User implements UserDetails {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public Date getCreated_at() {
+		return created_at;
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
+	}
+
+	public Date getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 
 	@Override
@@ -97,5 +124,16 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -3,20 +3,25 @@
     <app-header-auth></app-header-auth>
 
     <div class="content">
-        <div class="form">
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
             <h2>Se connecter</h2>
 
             <div class="form-group">
                 <label for="email">E-mail ou nom d'utilisateur</label>
-                <input type="text" id="email">
+                <input type="text" formControlName="email" id="email">
             </div>
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password">
+                <input type="password" formControlName="password" id="password">
+                <!-- <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button> -->
             </div>
+            <p *ngIf="onError" class="error">An error occurred</p>
             <div class="action-buttons">
-                <button (click)="onSubmit()">Se connecter</button>
+                <button type="submit" [disabled]="form.invalid">Se connecter</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>

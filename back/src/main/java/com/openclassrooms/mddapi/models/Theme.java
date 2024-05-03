@@ -6,8 +6,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
 import jakarta.persistence.Id;
 
+@Builder
 @Entity
 public class Theme {
 	
@@ -17,6 +19,9 @@ public class Theme {
 	
 	@Column
 	private String title;
+	
+	@Column
+	private String description;
 	
 	@OneToMany(mappedBy = "theme")
 	private List<Article> articles;

@@ -16,7 +16,7 @@ export class HeaderArticlesComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/', '/']);
+    this.router.navigate(['/', '/session']);
   }
 
 }
