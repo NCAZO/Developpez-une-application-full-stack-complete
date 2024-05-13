@@ -5,12 +5,9 @@ import com.openclassrooms.mddapi.dto.request.LoginRequest;
 import com.openclassrooms.mddapi.dto.request.RegisterRequest;
 import com.openclassrooms.mddapi.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.dto.response.MessageResponse;
-import com.openclassrooms.mddapi.dto.response.UserInfoResponse;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -81,7 +78,7 @@ public class AuthService {
     }
 
     public User getUserById(Long id) {
-        if(!userRepository.findById(id).isPresent()) {
+        if (!userRepository.findById(id).isPresent()) {
             throw new RuntimeException("User not found");
         }
         return userRepository.findById(id).get();

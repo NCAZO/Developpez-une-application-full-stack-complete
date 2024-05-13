@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header-auth',
@@ -16,8 +16,7 @@ export class HeaderAuthComponent implements OnInit {
   }
 
   goBack() {
-    // this.router.navigate(['/', '/']);
-    window.history.back();
+    this.router.navigate(['/', '/']);
   }
 
 }
