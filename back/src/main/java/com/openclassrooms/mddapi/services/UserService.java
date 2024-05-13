@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.services;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.models.User;
@@ -15,22 +16,6 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-//    public User getUserByName(String name) {
-//        return userRepository.findByName(name);
-//    }
-
-//    public Integer getUserIdByName(Authentication authentication) {
-//        User userFind = userRepository.findByName(authentication.getName());
-//        if (userFind == null) {
-//            return null;
-//        }
-//        return userFind.getId();
-//    }
-
-//    public User getUserByEmail(String email) {
-//        return userRepository.findByEmail(email);
-//    }
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -50,5 +35,21 @@ public class UserService {
 
 	public User createUser(User user) {
 		return userRepository.save(user);
+	}
+
+//	public Long getUserIdByName(Authentication authentication) {
+//		User userFind = userRepository.findByName(authentication.getName());
+//		if (userFind == null) {
+//			return null;
+//		}
+//		return userFind.getId();
+//	}
+
+	public Optional<User> findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	public Optional<User> findUserByName(String name) {
+		return userRepository.findByName(name);
 	}
 }

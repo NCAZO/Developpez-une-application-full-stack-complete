@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.dto.response.MessageResponse;
 import com.openclassrooms.mddapi.dto.response.UserInfoResponse;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -30,17 +31,18 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     public AuthService(AuthenticationManager authenticationManager,
                        PasswordEncoder passwordEncoder,
-//            JwtUtils jwtUtils,
                        JwtService jwtService,
-                       UserService userService) {
+                       UserService userService,
+                       UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
-//        this.jwtUtils = jwtUtils;
         this.jwtService = jwtService;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
@@ -67,9 +69,8 @@ public class AuthService {
     }
 
     public ResponseEntity<AuthResponse> login(LoginRequest loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getName(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -77,5 +78,12 @@ public class AuthService {
 
         String token = jwtService.generateToken(userDetails);
         return ResponseEntity.ok().body(new AuthResponse(token));
+    }
+
+    public User getUserById(Long id) {
+        if(!userRepository.findById(id).isPresent()) {
+            throw new RuntimeException("User not found");
+        }
+        return userRepository.findById(id).get();
     }
 }

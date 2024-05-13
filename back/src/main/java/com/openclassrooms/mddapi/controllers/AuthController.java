@@ -4,8 +4,10 @@ import com.openclassrooms.mddapi.dto.request.RegisterRequest;
 import com.openclassrooms.mddapi.dto.response.AuthResponse;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.services.AuthService;
+import com.openclassrooms.mddapi.services.UserService;
 import jakarta.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ import com.openclassrooms.mddapi.dto.response.UserInfoResponse;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.services.JwtService;
 import com.openclassrooms.mddapi.services.UserDetailsImpl;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -47,6 +52,11 @@ public class AuthController {
 	JwtService jwtService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private UserService userService;
+
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -66,9 +76,30 @@ public class AuthController {
 	}
 
 	@GetMapping("/me")
-	public User getMe(Authentication authentication) {
-		return ((User) SecurityContextHolder.getContext()
-				.getAuthentication()
-				.getPrincipal());
+	public User getMe() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+
+		Authentication authentication = securityContext.getAuthentication();
+
+		String username = authentication.getName();
+
+		Optional<User> _user = userService.findUserByName(username);
+
+		//_user.get().setPassword(null);
+
+		return _user.get();
 	}
+
+//	@GetMapping("/me")
+//	public ResponseEntity<User> getMe(Authentication authentication) {
+//		Long userId = userService.getUserIdByName(authentication);
+//
+//		User user = authService.getUserById(userId);
+//		if (user == null) {
+//			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//		}
+//
+//		User userDTO = modelMapper.map(user, User.class);
+//		return ResponseEntity.ok(userDTO);
+//	}
 }

@@ -16,7 +16,8 @@ export class HeaderAuthComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/', '/']);
+    // this.router.navigate(['/', '/']);
+    window.history.back();
   }
 
 }

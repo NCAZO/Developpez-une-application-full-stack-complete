@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   //#region VARIABLES
   public form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    name: ['', /*[Validators.required, Validators.email || Validators.name]*/],
     password: ['', [Validators.required, Validators.min(3)]]
   });
 
@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const loginRequest = this.form.value as LoginRequest;
-
-    console.log('logRequest', loginRequest);
+    console.log(loginRequest)
     this.authService.login(loginRequest).subscribe(
       (response) => {
+        console.log('response', response);
         localStorage.setItem('token', response.token);
 
         this.authService.me().subscribe((user: User) => {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(['/session']);
         });
-        this.router.navigate(['/session']);
+        // this.router.navigate(['/session']);
       },
       error => this.onError = true,
     );
