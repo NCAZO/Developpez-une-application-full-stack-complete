@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginRequest {
 	
 	private String name;
-  
-  	@NotBlank
+
+	//@NotBlank
   	private String email;
 
 	@NotBlank
