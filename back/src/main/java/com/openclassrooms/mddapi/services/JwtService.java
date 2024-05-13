@@ -21,13 +21,13 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
   private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
 
-//  @Value("${op.app.jwtSecret}")
+//  @Value("${oc.app.jwtSecret}")
   private String jwtSecret = "lriAc1p6y27mg+Cy5TpDBh3USQ2CnFedOjp2kj9PE/ICFr6maDoahCPG2kGnsAFWhLANySppkBbHJxPyoIdchPXpP2WMHERZNY5LBCmmMj8B7N7TulyFTjLM72TC9JCGZe0ToYfIe5QNTeqzjU0wR1F2jhHdFBRrU7wikMEYoFoP7Mx8uJRxjotW4x2ngcM0XMKnoK6TgGyQ8IdoUI359Ain0BbrhrQXlZP5VeoPeXfrdz0UyeUQqTTwAok0zs4g4mBfxYm+W+2L9uc8H/mqkMfMcLjDzm+dLxxZRRlGdY3y3ctOpmvbuoTbCwlQ3rtlT1EYo2eg6cyn0//8RCKkjvmjVr2xsXNqSlr6aIxP66I=";
 
-//  @Value("${op.app.jwtExpirationMs}")
+//  @Value("${oc.app.jwtExpirationMs}")
   private int jwtExpirationMs = 86400000;
 
-//  @Value("${op.app.jwtCookieName}")
+//  @Value("${oc.app.jwtCookieName}")
   private String jwtCookie = "nicolas";
 
   public String getJwtFromCookies(HttpServletRequest request) {
@@ -39,10 +39,10 @@ public class JwtService {
     }
   }
 
-  public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername());
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
-    return cookie;
+  public String generateToken(UserDetailsImpl userPrincipal) {
+    return generateTokenFromUsername(userPrincipal.getUsername());
+//    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
+//    return cookie;
   }
 
   public ResponseCookie getCleanJwtCookie() {

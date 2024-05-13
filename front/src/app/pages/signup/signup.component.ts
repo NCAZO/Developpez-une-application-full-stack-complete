@@ -46,11 +46,13 @@ export class SignupComponent implements OnInit {
     const registerRequest = this.form.value as RegisterRequest;
     this.authService.register(registerRequest).subscribe(
       (response: any) => {
-        localStorage.setItem('token', response.token);
-        this.authService.me().subscribe((user: User) => {
-          this.sessionService.logIn(user);
-          this.router.navigate(['/session'])
-        });
+        console.log('response', response)
+        //localStorage.setItem('token', response.token);
+        // this.authService.me().subscribe((user: User) => {
+        //   console.log('user', user)
+        //   this.sessionService.logIn(user);
+        //   this.router.navigate(['/session'])
+        // });
       },
       error => this.onError = true
     );

@@ -1,3 +1,4 @@
+/*
 package com.openclassrooms.mddapi.models;
 
 import java.sql.Date;
@@ -21,20 +22,22 @@ public class Article {
 
 	@Id
 	@GeneratedValue
+	@Column(name = "Id")
 	private Long Id;
-	
-	@Column
+
+	@Column(name = "title")
 	private String title;
-	
-	@Column
+
+	@Column(name = "content")
 	private String content;
-	
+
 //	@Column
 	@CreationTimestamp
+	@Column(name = "create_at")
 	private Date create_at;
 	
 	@ManyToOne
-	@JoinColumn(name = "themeId")
+	@JoinColumn(name = "theme_Id")
 	private Theme theme;
 
 	@ManyToOne
@@ -43,6 +46,10 @@ public class Article {
 
     @OneToMany(mappedBy = "article")
     private List<Comment> comments;
+
+	public Article() {
+
+	}
 
 	public Long getId() {
 		return Id;
@@ -100,3 +107,4 @@ public class Article {
 		this.comments = comments;
 	}
 }
+*/

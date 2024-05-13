@@ -1,3 +1,4 @@
+/*
 package com.openclassrooms.mddapi.models;
 
 import jakarta.persistence.Entity;
@@ -19,3 +20,4 @@ public class Comment {
     private Article article;
 
 }
+*/

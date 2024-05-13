@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.request.ArticleRequest;
-import com.openclassrooms.mddapi.models.Article;
+//import com.openclassrooms.mddapi.models.Article;
 import com.openclassrooms.mddapi.services.ArticleService;
 
 
@@ -19,18 +19,18 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	
-	@GetMapping("/getArticles")
-	public List<Article> getArticles() throws Exception {
-		return articleService.getArticles();
-	}
-	
-	@GetMapping("/article/{id}")
-	public Article getArticle(Long id) {
-		return articleService.getArticle(id);
-	}
-	
-	@PostMapping("/createArticle")
-	public Article createArticle(@RequestBody ArticleRequest articleRequest) throws Exception {
-		return articleService.createArticle(articleRequest);
-	}
+//	@GetMapping("/getArticles")
+//	public List<Article> getArticles() throws Exception {
+//		return articleService.getArticles();
+//	}
+//
+//	@GetMapping("/article/{id}")
+//	public Article getArticle(Long id) {
+//		return articleService.getArticle(id);
+//	}
+//
+//	@PostMapping("/createArticle")
+//	public Article createArticle(@RequestBody ArticleRequest articleRequest) throws Exception {
+//		return articleService.createArticle(articleRequest);
+//	}
 }

@@ -1,3 +1,4 @@
+/*
 package com.openclassrooms.mddapi.models;
 
 import java.util.List;
@@ -19,3 +20,4 @@ public class Articles {
 	
 
 }
+*/

@@ -8,24 +8,22 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.models.User;
-import com.openclassrooms.mddapi.repository.ThemeRepository;
 
 @Service
 public class ThemeService {
 	
-	@Autowired
-	private ThemeRepository themeRepository;
+//	@Autowired
+//	private ThemeRepository themeRepository;
 
-	public Theme getById(Long Id) throws NotFoundException {
-		Optional<Theme> theme = themeRepository.findById(Id);
-		
-		if(theme.isEmpty()) {
-			throw new NotFoundException();
-		}
-		return theme.get();
-	}
+//	public Theme getById(Long Id) throws NotFoundException {
+//		Optional<Theme> theme = themeRepository.findById(Id);
+//
+//		if(theme.isEmpty()) {
+//			throw new NotFoundException();
+//		}
+//		return theme.get();
+//	}
 	
 //	public List<Theme> getFollowing(){
 //		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

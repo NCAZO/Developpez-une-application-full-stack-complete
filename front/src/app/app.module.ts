@@ -12,13 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 import { CreateArticleComponent } from './pages/create-article/create-article.component';
 import {MatSelectModule} from '@angular/material/select';
 import { HeaderAuthComponent } from './headers/header-auth/header-auth.component';
-import { HeaderArticlesComponent } from './headers/header-articles/header-articles.component';
+import { HeaderSessionComponent } from './headers/header-session/header-session.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
+import { MeComponent } from './pages/me/me.component';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -28,12 +29,12 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
     SignupComponent,
     SessionComponent,
     FooterComponent,
-    HeaderComponent,
     CreateArticleComponent,
     HeaderAuthComponent,
-    HeaderArticlesComponent,
+    HeaderSessionComponent,
+    MeComponent,
   ],
-  
+
   imports: [
     BrowserModule,
     FormsModule,
@@ -48,6 +49,8 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
+    MatSnackBar,
   ],
   bootstrap: [AppComponent],
 })

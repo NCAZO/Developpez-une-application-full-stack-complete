@@ -1,3 +1,4 @@
+/*
 package com.openclassrooms.mddapi.models;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public class Theme {
 	
 	@Id
 	@GeneratedValue
-	private Long id;
+	@Column(name = "Id")
+	private Long Id;
 	
 	@Column
 	private String title;
@@ -25,4 +27,9 @@ public class Theme {
 	
 	@OneToMany(mappedBy = "theme")
 	private List<Article> articles;
+
+	public Theme() {
+
+	}
 }
+*/

@@ -15,10 +15,12 @@ export class AuthService {
 
   private pathService = environment.baseUrl + 'auth';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    ) { }
 
   public login(loginRequest: LoginRequest): Observable<AuthSuccess> {
-    return this.httpClient.post<AuthSuccess>(`${this.pathService}/login`, loginRequest);
+    return this.httpClient.post<any>(`${this.pathService}/login`, loginRequest);
   }
 
   public register(registerRequest: RegisterRequest): Observable<RegisterSuccess> {
