@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {LoginRequest} from 'src/app/_interfaces/login/login-request';
-import {User} from 'src/app/_models/user/user';
 import {AuthService} from 'src/app/_services/auth/auth.service';
 import {SessionService} from 'src/app/_services/session/session.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../../_models/user/user";
+import {StorageService} from "../../_services/storage/storage.service";
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,6 @@ export class LoginComponent implements OnInit {
     name: ['', [Validators.required]],
     password: ['', [Validators.required]]
   });
-
-  public hide = true;
   public onError = false;
 
   //#endregion
@@ -31,14 +30,11 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private sessionService: SessionService,
     private _snackBar: MatSnackBar,
+    private storageService: StorageService,
   ) {
   }
 
   ngOnInit(): void {
-  }
-
-  goBack() {
-    this.router.navigate(['/', '/']);
   }
 
   onSubmit() {
@@ -49,7 +45,7 @@ export class LoginComponent implements OnInit {
 
         this.authService.me().subscribe((user: User) => {
           this.sessionService.logIn(user);
-
+          this.storageService.saveUser(user);
           this.router.navigate(['/session']);
           this._snackBar.open('Connecté', 'Fermer', {
             duration: 3000
@@ -58,5 +54,10 @@ export class LoginComponent implements OnInit {
       },
       error => this.onError = true,
     );
+    if (this.onError) {
+      this._snackBar.open('Connexion Échouée !', 'Fermer', {
+        duration: 3000
+      });
+    }
   }
 }

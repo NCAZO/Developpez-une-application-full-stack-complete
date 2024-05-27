@@ -1,110 +1,79 @@
-/*
 package com.openclassrooms.mddapi.models;
 
-import java.sql.Date;
-import java.util.List;
+import jakarta.persistence.*;
 
-import org.hibernate.annotations.CreationTimestamp;
+import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import lombok.Builder;
-import jakarta.persistence.Id;
-
-
-@Builder
-@Entity(name = "article")
+@Entity
+@Table(name = "article")
 public class Article {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-	@Id
-	@GeneratedValue
-	@Column(name = "Id")
-	private Long Id;
+    @Column(name = "title")
+    private String title;
 
-	@Column(name = "title")
-	private String title;
+    @Lob
+    @Column(name = "content")
+    private String content;
 
-	@Column(name = "content")
-	private String content;
+    @Column(name = "created_at", updatable = false)
+    private Date created_at;
 
-//	@Column
-	@CreationTimestamp
-	@Column(name = "create_at")
-	private Date create_at;
-	
-	@ManyToOne
-	@JoinColumn(name = "theme_Id")
-	private Theme theme;
-
-	@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "fk_id_user", updatable = false)
     private User user;
 
-    @OneToMany(mappedBy = "article")
-    private List<Comment> comments;
+    public Article() {
+    }
 
-	public Article() {
+    public Article(Long id, String title, String content, Date created_at, User user) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.created_at = created_at;
+        this.user = user;
+    }
 
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public Long getId() {
-		return Id;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public void setId(Long id) {
-		Id = id;
-	}
+    public Date getCreated_at() {
+        return created_at;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public Date getCreate_at() {
-		return create_at;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setCreate_at(Date create_at) {
-		this.create_at = create_at;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Theme getTheme() {
-		return theme;
-	}
-
-	public void setTheme(Theme theme) {
-		this.theme = theme;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
-*/

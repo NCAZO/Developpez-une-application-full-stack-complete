@@ -15,13 +15,16 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class SignupComponent implements OnInit {
 
+  //#region VARIABLE
   public onError = false;
-
   public form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     name: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    password: ['', [Validators.required, Validators.minLength(8), /*Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_-+={}[]|;\':"/<>,.?]).{8,}$')*/]]
   });
+  private isPasswordOK = false;
+
+  //#endregion VARIABLE
 
   constructor(private authService: AuthService,
               private fb: FormBuilder,
@@ -40,29 +43,35 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     const registerRequest = this.form.value as RegisterRequest;
-    this.authService.register(registerRequest).subscribe(
-      (response: any) => {
-        this.authService.login(registerRequest).subscribe(
-          (response: AuthSuccess) => {
-            localStorage.setItem('token', response.token);
-            this.authService.me().subscribe((user: User) => {
-              this.sessionService.logIn(user);
-              this.router.navigate(['/session']);
-              this._snackBar.open('Enregistrement réussi !', 'Fermer', {
-                duration: 3000
+    // this.validatePassword(registerRequest.password);
+    if (!this.form.valid) {
+      if (registerRequest.email == "" || registerRequest.password == "" || registerRequest.name == "") {
+        this._snackBar.open('Formulaire non valide !', 'Fermer', {
+          duration: 3000
+        });
+      } else if (registerRequest.password.length < 8) {
+        this._snackBar.open('Mot de passe trop faible !', 'Fermer', {
+          duration: 3000
+        });
+      }
+    } else {
+      this.authService.register(registerRequest).subscribe(
+        (response: any) => {
+          this.authService.login(registerRequest).subscribe(
+            (response: AuthSuccess) => {
+              localStorage.setItem('token', response.token);
+              this.authService.me().subscribe((user: User) => {
+                this.sessionService.logIn(user);
+                this.router.navigate(['/session']);
+                this._snackBar.open('Enregistrement réussi !', 'Fermer', {
+                  duration: 3000
+                });
               });
-            });
-          }
-        )
-        //localStorage.setItem('token', response.token);
-        // this.authService.me().subscribe((user: User) => {
-        //   console.log('user', user)
-        //   this.sessionService.logIn(user);
-        //   this.router.navigate(['/session'])
-        // });
-      },
-      error => this.onError = true
-    );
+            }
+          )
+        },
+        error => this.onError = true
+      );
+    }
   }
-
 }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -66,15 +68,22 @@ public class AuthService {
     }
 
     public ResponseEntity<AuthResponse> login(LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getName(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getName(), loginRequest.getPassword()));
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtService.generateToken(userDetails);
-        return ResponseEntity.ok().body(new AuthResponse(token));
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+            String token = jwtService.generateToken(userDetails);
+            return ResponseEntity.ok().body(new AuthResponse(token, "200", "Token generated"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new AuthResponse(null, "400", "Unknown user"));
+        }
+
+
     }
 
     public User getUserById(Long id) {
@@ -83,4 +92,19 @@ public class AuthService {
         }
         return userRepository.findById(id).get();
     }
+
+    public User getMe() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+
+        Authentication authentication = securityContext.getAuthentication();
+
+        String username = authentication.getName();
+
+        Optional<User> _user = userService.findUserByName(username);
+
+        _user.get().setPassword(null);
+
+        return _user.get();
+    }
+
 }

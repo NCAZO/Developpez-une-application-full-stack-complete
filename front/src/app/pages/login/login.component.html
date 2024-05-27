@@ -1,5 +1,5 @@
+<!--<mat-spinner></mat-spinner>-->
 <div class="container">
-
     <app-header-auth></app-header-auth>
 
     <div class="content">
@@ -13,15 +13,10 @@
             <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" formControlName="password" id="password">
-                <!-- <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button> -->
             </div>
-            <p *ngIf="onError" class="error">An error occurred</p>
+          <!--            <p *ngIf="onError" class="error">An error occurred</p>-->
             <div class="action-buttons">
-                <button type="submit" [disabled]="form.invalid">Se connecter</button>
-<!--              <button (click)="snackbar()"></button>-->
+              <button type="submit">Se connecter</button>
             </div>
         </form>
     </div>

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from 'src/app/_models/user/user';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {User} from 'src/app/_models/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,7 @@ export class SessionService {
 
   public logOut(): void {
     localStorage.removeItem('token');
+    sessionStorage.removeItem("currentUser");
     this.user = undefined;
     this.isLogged = false;
     this.next();

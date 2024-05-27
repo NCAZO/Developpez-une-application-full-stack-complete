@@ -13,9 +13,9 @@
                 <option value="">ddd</option>
             </select>
 
-            <input type="text" placeholder="Titre de l'article">
+          <input [(ngModel)]="title" placeholder="Titre de l'article" type="text">
 
-            <textarea name="" id="" cols="30" rows="10" placeholder="Contenu de l'article"></textarea>
+          <textarea [(ngModel)]="content" cols="30" name="" placeholder="Contenu de l'article" rows="10"></textarea>
 
             <div class="action-buttons">
                 <button (click)="onSubmit()">Créer</button>

@@ -6,70 +6,20 @@
       <button (click)="createArticle()">Créer un article</button>
       <!-- <label for="">Trier par</label> -->
       <!-- Mettre boutton pour le label -->
-      <div class="div" style="display: flex; align-items: baseline;">
-        <label for="">Trier par ↓</label>
-
+      <div class="div" style="display: flex; align-items: baseline; margin-right: 50px">
+        <label for="" style="font-weight: 400">Trier par ↓</label>
       </div>
     </div>
-
-
-    <ul class="cards">
-
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_content">
-            <h2 class="card_title">Titre de l'article</h2>
-            <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
-              nisi maxime vero ullam sit quos corporis non!</p>
-          </div>
+    <div class="cards">
+      <div *ngFor="let article of articles" class="card">
+        <h2 class="title">{{ article.title }}</h2>
+        <div class="infoUser">
+          <label for="">{{ article.created_at | date:'dd/MM/yyyy' }}</label>
+          <label for="">{{ article.user.username }}</label>
+          <label for=""></label>
         </div>
-      </li>
-
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_content">
-            <h2 class="card_title">Titre de l'article</h2>
-            <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
-              nisi maxime vero ullam sit quos corporis non!</p>
-          </div>
-        </div>
-      </li>
-
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_content">
-            <h2 class="card_title">Titre de l'article</h2>
-            <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
-              nisi maxime vero ullam sit quos corporis non!</p>
-          </div>
-        </div>
-      </li>
-
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_content">
-            <h2 class="card_title">Titre de l'article</h2>
-            <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
-              nisi maxime vero ullam sit quos corporis non!</p>
-          </div>
-        </div>
-      </li>
-
-      <li class="cards_item">
-        <div class="card">
-          <div class="card_content">
-            <h2 class="card_title">Titre de l'article</h2>
-            <p class="card_text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-              sint tempora cum nemo voluptatem quia, aperiam similique, hic et neque, accusantium fuga
-              nisi maxime vero ullam sit quos corporis non!</p>
-          </div>
-        </div>
-      </li>
-
-    </ul>
+        <p class="content">{{ article.content }}</p>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,19 +1,25 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {Article} from "../../_models/article/article";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
 
+  private pathService = environment.baseUrl;
+
   constructor(
     private http: HttpClient,
   ) { }
 
   getArticles(): Observable<any> {
-    const url = environment.baseUrl += 'getArticles';
-    return this.http.get<any>(url);
+    return this.http.get<any>(`${this.pathService}getArticles`);
+  }
+
+  createArticle(body: Article) {
+    return this.http.post<any>(`${this.pathService}createArticle`, body);
   }
 }
