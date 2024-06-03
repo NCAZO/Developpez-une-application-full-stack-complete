@@ -1,0 +1,30 @@
+<!-- Affichage spinner chargement -->
+<ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, 0.8)" color="#fff" size="medium" type="timer">
+  <p style="color: white"> Chargement en cours... </p>
+</ngx-spinner>
+<div class="container">
+
+  <div class="containerSideBar" id="containerSideBar">
+    <div (click)="hideSideBar()" class="closeSideBar" id="closeSideBar"></div>
+    <div class="menu">
+      <div class="nav">
+        <a routerLink="/session">Articles</a>
+        <a routerLink="/themes">Themes</a>
+      </div>
+      <div class="me">
+        <img alt="user logo" height="512" ngSrc="assets/images/utilisateur.png" routerLink="/me" width="512">
+      </div>
+    </div>
+  </div>
+
+  <app-header-session></app-header-session>
+
+  <div class="cards">
+    <div *ngFor="let theme of themes" class="card">
+      <h2 class="title">{{ theme.title }}</h2>
+      <p class="content">{{ theme.content }}</p>
+
+      <button (click)="subscribeTheme(theme)" class="button">S'abonner</button>
+    </div>
+  </div>
+</div>
