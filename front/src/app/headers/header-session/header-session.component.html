@@ -1,15 +1,18 @@
 <div class="container">
-    <div class="header">
-        <img src="../../../assets/images/logo_p6.png" alt="Logo">
-        <div class="header-content">
-            <button (click)="goArticle()">Articles</button>
+  <div class="header">
+    <img alt="Logo" src="../../../assets/images/logo_p6.png">
+    <div class="header-content">
+      <button (click)="goArticle()">Articles</button>
 
-            <button (click)="goTheme()">Thèmes</button>
+      <button (click)="goTheme()">Thèmes</button>
 
-            <img (click)="me()" src="../../../assets/images/utilisateur.png" alt="user">
-        </div>
+      <img (click)="me()" alt="user" src="../../../assets/images/utilisateur.png">
     </div>
-<!--    <div class="back">-->
-<!--        <img (click)="goBack()" src="../../../assets/images/fleche.png" alt="fleche">-->
-<!--    </div>-->
+
+    <div class="sideMenu">
+      <button (click)="toggleSideBar()" class="btnSideBar">
+        &#9776;
+      </button>
+    </div>
+  </div>
 </div>

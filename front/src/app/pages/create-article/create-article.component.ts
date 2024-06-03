@@ -5,6 +5,8 @@ import {Article} from "../../_models/article/article";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../../_services/auth/auth.service";
 import {StorageService} from "../../_services/storage/storage.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-create-article',
@@ -26,15 +28,11 @@ export class CreateArticleComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private authService: AuthService,
     private storageService: StorageService,
+    private spinnerService: NgxSpinnerService,
   ) {
   }
 
   ngOnInit(): void {
-  }
-
-  goBack() {
-    this.router.navigate(['/session'])
-
   }
 
   onSubmit() {
@@ -46,7 +44,11 @@ export class CreateArticleComponent implements OnInit {
       user: user,
       created_at: null,
     };
-    this.articleService.createArticle(articleRequest).subscribe((response) => {
+    this.spinnerService.show();
+    this.articleService.createArticle(articleRequest)
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe((response) => {
+          this.router.navigate(['/session'])
         this._snackBar.open('Article créé !', 'Fermer', {
           duration: 3000
         });

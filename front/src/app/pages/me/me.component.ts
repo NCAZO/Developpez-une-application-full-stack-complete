@@ -7,6 +7,8 @@ import {MeService} from "../../_services/me/me.service";
 import {User} from "../../_models/user/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SubscriptionService} from "../../_services/subscription/subscription.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-me',
@@ -46,6 +48,7 @@ export class MeComponent implements OnInit {
     private meService: MeService,
     private _snackBar: MatSnackBar,
     private subscriptionService: SubscriptionService,
+    private spinnerService: NgxSpinnerService,
   ) {
   }
 
@@ -54,29 +57,50 @@ export class MeComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.currentUser.id !== undefined) {
-      if (this.form.value.password === this.form.value.confirmPassword) {
-        const updateUserRequest = this.form.value as User;
-        updateUserRequest.id = this.currentUser.id;
-        this.meService.saveUserInfo(updateUserRequest).subscribe((updatedUser: User) => {
+    if (this.currentUser.id === undefined) {
+      this._snackBar.open('Utilisateur inconnu !', 'Fermer', {
+        duration: 3000
+      });
+    }
+    if (this.form.value.password != this.form.value.confirmPassword) {
+      this._snackBar.open('Les mots de passe ne correspondent pas !', 'Fermer', {
+        duration: 3000
+      });
+    } else {
+      const updateUserRequest = this.form.value as User;
+      const validationErrors = this.validatePassword(updateUserRequest);
+      if (validationErrors.length > 0) {
+        this._snackBar.open(validationErrors.join('\n'), 'Fermer', {duration: 3000});
+        return;
+      }
+      updateUserRequest.id = this.currentUser.id
+      this.spinnerService.show();
+      this.meService.saveUserInfo(updateUserRequest)
+        .pipe(finalize(() => this.spinnerService.hide()))
+        .subscribe((updatedUser: User) => {
             this.currentUser = updatedUser;
-            console.log('currentUser', this.currentUser);
             this._snackBar.open('Informations sauvegardées !', 'Fermer', {
               duration: 3000
             });
           },
           error => this.onError = true
         );
-      } else {
-        this._snackBar.open('Les mots de passe ne correspondent pas !', 'Fermer', {
-          duration: 3000
-        });
-      }
-    } else {
-      this._snackBar.open('Utilisateur inconnu !', 'Fermer', {
-        duration: 3000
-      });
     }
+  }
+
+  validatePassword(updateUserRequest: User): string[] {
+    const errors: any[] = [];
+    if (!updateUserRequest.password) {
+      errors.push('Mot de passe requis');
+      return errors;
+    } else if (updateUserRequest.password.length < 8) {
+      errors.push('Mot de passe trop court (minimum 8 caractères)');
+      return errors;
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/.test(updateUserRequest.password)) {
+      errors.push('Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial');
+      return errors;
+    }
+    return errors;
   }
 
   logOut() {
@@ -85,7 +109,10 @@ export class MeComponent implements OnInit {
   }
 
   getSubscription() {
-    this.subscriptionService.getSubscriptions().subscribe(
+    this.spinnerService.show();
+    this.subscriptionService.getSubscriptions()
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe(
       (subscriptions: any[]) => {
         this.subscriptions = subscriptions;
         console.log('this.subscriptions', this.subscriptions);
@@ -93,11 +120,18 @@ export class MeComponent implements OnInit {
   }
 
   unSubscribe(subscription: any) {
-    this.subscriptionService.unSubscribe(subscription.id).subscribe(
+    this.spinnerService.show();
+    this.subscriptionService.unSubscribe(subscription.id)
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe(
       (response: any) => {
         this.getSubscription();
         console.log('res', response);
       }
     )
+  }
+
+  hideSideBar() {
+    document.getElementById('containerSideBar').style.visibility = 'hidden';
   }
 }

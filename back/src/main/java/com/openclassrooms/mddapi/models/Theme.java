@@ -16,7 +16,8 @@ public class Theme {
     @Column
     private String title;
 
-    @Column
+    @Column(name = "content",
+            columnDefinition = "TEXT")
     private String content;
 
 //	@OneToMany(mappedBy = "theme")

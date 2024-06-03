@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, Long> {
-//    List<Subscription> findByIdUserId(Long userId);
-
     List<Subscription> findAllByIdUser(Long userId);
 }

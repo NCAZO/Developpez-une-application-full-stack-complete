@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -9,9 +10,11 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, JwtService jwtService) {
+    public UserService(UserRepository userRepository, JwtService jwtService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUserById(Long id) {
@@ -60,7 +63,7 @@ public class UserService {
         if (currentUserId.isPresent()) {
             currentUserId.get().setEmail(user.getEmail());
             currentUserId.get().setName(user.getName());
-            currentUserId.get().setPassword(user.getPassword());
+            currentUserId.get().setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(currentUserId.get());
         } else {
             throw new Exception("User do not exist !");

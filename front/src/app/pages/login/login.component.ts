@@ -7,6 +7,8 @@ import {SessionService} from 'src/app/_services/session/session.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../../_models/user/user";
 import {StorageService} from "../../_services/storage/storage.service";
+import {NgxSpinnerService} from "ngx-spinner";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
     private sessionService: SessionService,
     private _snackBar: MatSnackBar,
     private storageService: StorageService,
+    private spinnerService: NgxSpinnerService,
   ) {
   }
 
@@ -39,11 +42,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const loginRequest = this.form.value as LoginRequest;
-    this.authService.login(loginRequest).subscribe(
+    const validationErrors = this.validateForm(loginRequest);
+    if (validationErrors.length > 0) {
+      this._snackBar.open(validationErrors.join('\n'), 'Fermer', {duration: 3000});
+      return;
+    }
+    this.spinnerService.show();
+    this.authService.login(loginRequest)
+      .pipe(finalize(() => this.spinnerService.hide()))
+      .subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
 
-        this.authService.me().subscribe((user: User) => {
+
+        this.authService.me()
+          .subscribe((user: User) => {
           this.sessionService.logIn(user);
           this.storageService.saveUser(user);
           this.router.navigate(['/session']);
@@ -59,5 +72,20 @@ export class LoginComponent implements OnInit {
         duration: 3000
       });
     }
+  }
+
+  private validateForm(loginRequest: LoginRequest): string[] {
+    const errors: any[] = [];
+    if (!loginRequest.name) {
+      errors.push("Veuillez renseignez votre identifiant");
+      return errors;
+    }
+    if (!loginRequest.password) {
+      errors.push("Veuillez renseignez votre mot de passe");
+      return errors;
+    }
+    return errors;
+
+
   }
 }

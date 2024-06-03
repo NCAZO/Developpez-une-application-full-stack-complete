@@ -102,7 +102,7 @@ public class AuthService {
 
         Optional<User> _user = userService.findUserByName(username);
 
-        _user.get().setPassword(null);
+        //_user.get().setPassword(null);
 
         return _user.get();
     }

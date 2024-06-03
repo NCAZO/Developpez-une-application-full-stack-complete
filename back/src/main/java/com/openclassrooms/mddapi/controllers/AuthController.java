@@ -58,6 +58,8 @@ public class AuthController {
 
     @GetMapping("/me")
     public User getMe() {
-        return authService.getMe();
+        User newUSer = authService.getMe();
+        newUSer.setPassword(null);
+        return newUSer;
     }
 }

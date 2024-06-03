@@ -1,9 +1,29 @@
+<!-- Affichage spinner chargement -->
+<ngx-spinner [fullScreen]="true" bdColor="rgba(0, 0, 0, 0.8)" color="#fff" size="medium" type="timer">
+  <p style="color: white"> Chargement en cours... </p>
+</ngx-spinner>
+
 <div class="container">
+
+  <div class="containerSideBar" id="containerSideBar">
+    <div (click)="hideSideBar()" class="closeSideBar" id="closeSideBar"></div>
+    <div class="menu">
+      <div class="nav">
+        <a routerLink="/session">Articles</a>
+        <a routerLink="/themes">Themes</a>
+      </div>
+      <div class="me">
+        <img alt="user logo" height="512" ngSrc="assets/images/utilisateur.png" routerLink="/me" width="512">
+      </div>
+    </div>
+  </div>
+
   <app-header-session></app-header-session>
 
   <div class="content">
     <div class="content-header">
-      <button (click)="createArticle()">Créer un article</button>
+
+    <button (click)="createArticle()">Créer un article</button>
       <!-- <label for="">Trier par</label> -->
       <!-- Mettre boutton pour le label -->
       <div class="div" style="display: flex; align-items: baseline; margin-right: 50px">

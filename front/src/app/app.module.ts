@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -20,8 +20,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './_interceptor/jwt.interceptor';
 import {MeComponent} from './pages/me/me.component';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ThemesComponent} from './pages/themes/themes.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {ThemesComponent} from './pages/themes/themes.component';
     MatInputModule,
     MatSelectModule,
     HttpClientModule,
-    MatProgressSpinnerModule,
+    NgxSpinnerModule,
+    NgOptimizedImage,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -57,5 +59,6 @@ import {ThemesComponent} from './pages/themes/themes.component';
     MatSnackBar,
   ],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

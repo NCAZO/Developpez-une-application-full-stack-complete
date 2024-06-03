@@ -48,9 +48,7 @@
 }
 
 .container .content .cards .card {
-  flex: 1 0 30%;
-  /* 30px pour compenser la marge de 15px de chaque côté */
-  max-width: calc(30% - 30px);
+  width: 45%;
   margin: 15px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -84,25 +82,113 @@
   word-wrap: break-word;
 }
 
+.container .containerSideBar {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  visibility: hidden;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.container .containerSideBar .closeSideBar {
+  background: transparent;
+  backdrop-filter: blur(2px);
+  height: 100%;
+  width: 75%;
+}
+
+.container .containerSideBar .menu {
+  padding: 5px;
+  display: flex;
+  align-items: flex-end;
+  background: #FFFFFF;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 25%;
+  z-index: 1;
+}
+
+.container .containerSideBar .menu .nav {
+  //display: flex;
+  //flex-direction: column;
+
+}
+
+.container .containerSideBar .menu .nav a {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav a:last-child {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.container .containerSideBar .menu .me {
+  width: 38px;
+  height: 36px;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.container .containerSideBar .menu .me img {
+  width: 38px;
+  height: 36px;
+  cursor: pointer;
+}
+
 /////////////////////////////////////////////////
+@media (max-width: 1457px) {
+  .container .content .cards .card {
+    width: 44%;
+  }
+}
 
-//@media (max-width: 800px) {
-//  .container .content .cards .cards_item {
-//    flex: 1 0 calc(50% - 20px);
-//    // deux cartes par ligne
-//  }
-//}
-//
-//@media (max-width: 500px) {
-//  .container .content .cards .cards_item {
-//    flex: 1 0 calc(100% - 20px);
-//    // une carte par ligne
-//  }
-//}
+@media (max-width: 1217px) {
+  .container .content .cards .card {
+    width: 43%;
+  }
+}
 
-@media (max-width: 1024px) {
-  .container .content .cards_item {
-    flex: 1 0 calc(50% - 20px);
+@media (max-width: 1046px) {
+  .container .content .cards .card {
+    width: 42%;
+  }
+}
+
+@media (max-width: 917px) {
+  .container .content .cards .card {
+    width: 41%;
+  }
+}
+
+@media (max-width: 816px) {
+  .container .content .cards .card {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container .content .cards .card {
+    width: 100%;
   }
 
   .container .header img {
@@ -131,132 +217,32 @@
   }
 }
 
-// @media (max-width: 1732px){
-//     .container .content .cards .cards_item {
-//         width: 32.2%;
-//     }
-// }
+@media (max-width: 700px) {
+  .container .containerSideBar .closeSideBar {
+    width: 70%;
+  }
 
-// @media (max-width: 1581px){
-//     .container .content .cards .cards_item {
-//         width: 32.1%;
-//     }
-// }
+  .container .containerSideBar .menu {
+    width: 30%;
+  }
+}
 
-// @media (max-width: 1454px){
-//     .container .content .cards .cards_item {
-//         width: 32%;
-//     }
-// }
+@media (max-width: 500px) {
+  .container .containerSideBar .closeSideBar {
+    width: 65%;
+  }
 
-// @media (max-width: 1346px){
-//     .container .content .cards .cards_item {
-//         width: 31.9%;
-//     }
-// }
+  .container .containerSideBar .menu {
+    width: 35%;
+  }
+}
 
-// @media (max-width: 1254px){
-//     .container .content .cards .cards_item {
-//         width: 31.8%;
-//     }
-// }
+@media (max-width: 400px) {
+  .container .containerSideBar .closeSideBar {
+    width: 60%;
+  }
 
-// @media (max-width: 1173px){
-//     .container .content .cards .cards_item {
-//         width: 31.7%;
-//     }
-// }
-
-// @media (max-width: 1103px){
-//     .container .content .cards .cards_item {
-//         width: 31.6%;
-//     }
-// }
-
-// @media (max-width: 10400px){
-//     .container .content .cards .cards_item {
-//         width: 31.5%;
-//     }
-// }
-
-// @media (max-width: 984px){
-//     .container .content .cards .cards_item {
-//         width: 31%;
-//     }
-// }
-
-// @media (max-width: 777px){
-//     .container .content .cards .cards_item {
-//         width: 47.6%;
-//     }
-// }
-
-// @media (max-width: 755px){
-//     .container .content .cards .cards_item {
-//         width: 47.5%;
-//     }
-// }
-
-// @media (max-width: 726px){
-//     .container .content .cards .cards_item {
-//         width: 47%;
-//     }
-// }
-
-// @media (max-width: 608px){
-//     .container .content .cards .cards_item {
-//         width: 46.9%;
-//     }
-// }
-
-// @media (max-width: 554px){
-//     .container .content .cards .cards_item {
-//         width: 46.5%;
-//     }
-// }
-
-// @media (max-width: 524px){
-//     .container .content .cards .cards_item {
-//         width: 46%;
-//     }
-// }
-
-// @media (max-width: 461px){
-//     .container .content .cards .cards_item {
-//         width: 45.5%;
-//     }
-// }
-
-// @media (max-width: 450px){
-//     .container .content .cards .cards_item {
-//         width: 100%;
-//     }
-// }
-
-// @media (max-width: 446px) {
-
-//     .container .header img {
-//         width: 150px;
-//         margin-left: -20px;
-//     }
-
-//     .container .header .header-content {
-//         display: none;
-//     }
-
-//     .container .content .content-header {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         margin-top: -35px;
-//     }
-
-//     .container .content .content-header img {
-//         margin-right: 0;
-//         margin-top: -15px;
-//     }
-
-//     .container .content .cards_item {
-//         display: flex;
-//     }
-// }
+  .container .containerSideBar .menu {
+    width: 40%;
+  }
+}

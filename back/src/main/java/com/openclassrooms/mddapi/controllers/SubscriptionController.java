@@ -51,4 +51,12 @@ public class SubscriptionController {
         }
     }
 
+//    @GetMapping("/isAlreadySub")
+//    public ResponseEntity<> isAlreadySub() {
+//        try {
+//            return ResponseEntity.ok(subscriptionService.isAlreadySub().getBody());
+//        } catch (Exception e) {
+//            return (ResponseEntity<List<Subscription>>) ResponseEntity.notFound();
+//        }
+//    }
 }

@@ -15,8 +15,9 @@ public class Article {
     @Column(name = "title")
     private String title;
 
-    @Lob
-    @Column(name = "content")
+    @Column(name = "content",
+            columnDefinition = "TEXT")
+//    @Column(name = "content")
     private String content;
 
     @Column(name = "created_at", updatable = false)

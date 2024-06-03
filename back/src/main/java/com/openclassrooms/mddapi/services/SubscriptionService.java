@@ -46,4 +46,11 @@ public class SubscriptionService {
     public void unSubscribe(Subscription newSubscription) {
         subscriptionRepository.delete(newSubscription);
     }
+
+//    public ResponseEntity<List<Subscription>> isAlreadySub() {
+////        User user = authService.getMe();
+////        List<Subscription> subscriptions = subscriptionRepository.findAllByIdUser(user.getId());
+////        return ResponseEntity.ok(subscriptions);
+//        ResponseEntity<List<ThemeResponse>> listTheme = themeService.getThemes();
+//    }
 }

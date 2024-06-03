@@ -1,3 +1,76 @@
+.container .containerSideBar {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  visibility: hidden;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.container .containerSideBar .closeSideBar {
+  background: transparent;
+  backdrop-filter: blur(2px);
+  height: 100%;
+  width: 75%;
+}
+
+.container .containerSideBar .menu {
+  padding: 5px;
+  display: flex;
+  align-items: flex-end;
+  background: #FFFFFF;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 25%;
+  z-index: 1;
+}
+
+.container .containerSideBar .menu .nav {
+  //display: flex;
+  //flex-direction: column;
+
+}
+
+.container .containerSideBar .menu .nav a {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav a:last-child {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.container .containerSideBar .menu .me {
+  width: 38px;
+  height: 36px;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.container .containerSideBar .menu .me img {
+  width: 38px;
+  height: 36px;
+  cursor: pointer;
+}
+
 .container .content .form {
   display: flex;
   flex-direction: column;
@@ -159,3 +232,34 @@
     left: 20px;
   }
 }
+
+@media (max-width: 700px) {
+  .container .containerSideBar .closeSideBar {
+    width: 70%;
+  }
+
+  .container .containerSideBar .menu {
+    width: 30%;
+  }
+}
+
+@media (max-width: 500px) {
+  .container .containerSideBar .closeSideBar {
+    width: 65%;
+  }
+
+  .container .containerSideBar .menu {
+    width: 35%;
+  }
+}
+
+@media (max-width: 400px) {
+  .container .containerSideBar .closeSideBar {
+    width: 60%;
+  }
+
+  .container .containerSideBar .menu {
+    width: 40%;
+  }
+}
+
