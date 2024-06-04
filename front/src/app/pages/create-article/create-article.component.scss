@@ -1,97 +1,199 @@
+.container .containerSideBar {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  visibility: hidden;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.container .containerSideBar .closeSideBar {
+  background: transparent;
+  backdrop-filter: blur(2px);
+  height: 100%;
+  width: 75%;
+}
+
+.container .containerSideBar .menu {
+  padding: 5px;
+  display: flex;
+  align-items: flex-end;
+  background: #FFFFFF;
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 25%;
+  z-index: 1;
+}
+
+.container .containerSideBar .menu .nav {
+  //display: flex;
+  //flex-direction: column;
+
+}
+
+.container .containerSideBar .menu .nav a {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav a:last-child {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: black;
+}
+
+.container .containerSideBar .menu .nav button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.container .containerSideBar .menu .me {
+  width: 38px;
+  height: 36px;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.container .containerSideBar .menu .me img {
+  width: 38px;
+  height: 36px;
+  cursor: pointer;
+}
+
 .container .content .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 }
 
 .container .content .form h2 {
-    font-size: 1.8rem;
-    margin-bottom: 50px;
+  font-size: 1.8rem;
+  margin-bottom: 50px;
 }
 
+//.container .content .form .mat-form-field {
+//  border: 1px solid #7453E8;
+//  border-radius: 5px;
+//  margin-bottom: 20px;
+//  width: 270px;
+//  height: 20px;
+//  padding: 10px;
+//}
+//
+//.container .content .form .mat-form-field .mat-select {
+//  border: none;
+//  //background: red;
+//}
+//
+//.container .content .form .mat-form-field .mat-select .mat-option {
+//  border: none;
+//  //background: red;
+//}
+//
+//.mat-form-field-appearance-legacy .mat-form-field-underline {
+//  display: none;
+//}
+//
+///* Target the arrow icon */
+//.mat-select-arrow {
+//  display: none;
+//}
+
 .container .content .form select {
-    width: 290px;
-    padding: 5px;
-    height: 30px;
-    margin-bottom: 20px;
-    border: 1px solid #7453E8;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    appearance: none;
+  border: 1px solid #7453E8;
+  border-radius: 5px;
+  width: 290px;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.container .content .form select option {
+
 }
 
 .container .content .form input {
-    width: 280px;
-    padding: 5px;
-    height: 30px;
-    margin-bottom: 20px;
-    border: 1px solid #7453E8;
-    border-radius: 5px;
-    font-size: 1.1rem;
+  width: 280px;
+  padding: 5px;
+  height: 30px;
+  margin-bottom: 20px;
+  border: 1px solid #7453E8;
+  border-radius: 5px;
+  font-size: 1.1rem;
 }
 
 .container .content .form textarea {
-    width: 280px;
-    padding: 5px;
-    margin-bottom: 20px;
-    border: 1px solid #7453E8;
-    border-radius: 5px;
-    font-size: 1.1rem;
+  width: 280px;
+  padding: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #7453E8;
+  border-radius: 5px;
+  font-size: 1.1rem;
 }
 
 .container .content .form mat-form-field {
-    border-top: 1px solid black;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    margin-bottom: 10px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  margin-bottom: 10px;
 }
 
 .container .content .form .form-group input {
-    width: 250px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-bottom: 30px;
+  width: 250px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 30px;
 }
 
 .container .content .form .action-buttons button {
-    padding: 10px;
-    background: #7453E8;
-    width: 100px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: transform .1s;
+  padding: 10px;
+  background: #7453E8;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: transform .1s;
 }
 
 .container .content .form .action-buttons button:hover {
-    -ms-transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
 
-    .container .header {
-        display: flex;
-        justify-content: center;
-    }
+  .container .header {
+    display: flex;
+    justify-content: center;
+  }
 
-    .container .header img {
-        width: 250px;
-        position: relative;
-        top: 30px;
-    }
+  .container .header img {
+    width: 250px;
+    position: relative;
+    top: 30px;
+  }
 
-    .container .header hr {
-        display: none;
-    }
+  .container .header hr {
+    display: none;
+  }
 
-    .container .content .back button img {
-        position: absolute;
-        top: -135px;
-        left: -15px;
-    }
+  .container .content .back button img {
+    position: absolute;
+    top: -135px;
+    left: -15px;
+  }
 }

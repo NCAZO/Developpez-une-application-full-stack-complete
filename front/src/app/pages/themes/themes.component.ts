@@ -5,6 +5,8 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subscription} from "../../_models/subscription/subscription";
 import {NgxSpinnerService} from "ngx-spinner";
 import {finalize} from "rxjs";
+import {SubscriptionService} from "../../_services/subscription/subscription.service";
+import {StorageService} from "../../_services/storage/storage.service";
 
 @Component({
   selector: 'app-themes',
@@ -24,6 +26,8 @@ export class ThemesComponent implements OnInit {
     private themeService: ThemeService,
     private _snackBar: MatSnackBar,
     private spinnerService: NgxSpinnerService,
+    private subService: SubscriptionService,
+    private storageService: StorageService,
   ) {
   }
 
@@ -39,7 +43,6 @@ export class ThemesComponent implements OnInit {
       .subscribe
       ((response) => {
           this.themes = response;
-          console.log("this.themes", this.themes)
         },
         error => this.onError = true,
       );
@@ -51,7 +54,7 @@ export class ThemesComponent implements OnInit {
       .pipe(finalize(() => this.spinnerService.hide()))
       .subscribe(
         (response: any) => {
-          // this.isAlreadySub();
+          this.isAlreadySub();
           this._snackBar.open('Abonnement réussi !', 'Fermer', {
             duration: 3000
           });
@@ -69,12 +72,19 @@ export class ThemesComponent implements OnInit {
   }
 
   private isAlreadySub() {
-    for (let i = 0; i < this.subscribes.length; i++) {
-      for (let y = 0; y < this.themes.length; y++) {
-        if (this.subscribes[i].theme.id === this.themes[i].id) {
-          console.log('oui');
-        }
-      }
-    }
+    // this.spinnerService.show();
+    // this.subService.getSubscriptions()
+    //   .pipe(finalize(() => this.spinnerService.hide()) )
+    // .subscribe(
+    //   (response) => {
+    //     this.subscribes = response;
+    //     console.log('sub', this.subscribes);
+    //     for(let i =0; i < this.subscribes.length; i++){
+    //       if(this.subscribes[i].idUser === this.storageService.getUser().id && this.subscribes[i].){
+    //         console.log('ici')
+    //       }
+    //     }
+    //   }
+    // )
   }
 }

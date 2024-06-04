@@ -3,10 +3,10 @@ import {Router} from '@angular/router';
 import {ArticleService} from "../../_services/article/article.service";
 import {Article} from "../../_models/article/article";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AuthService} from "../../_services/auth/auth.service";
 import {StorageService} from "../../_services/storage/storage.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {finalize} from "rxjs";
+import {ThemeService} from "../../_services/theme/theme.service";
 
 @Component({
   selector: 'app-create-article',
@@ -17,7 +17,7 @@ export class CreateArticleComponent implements OnInit {
 
   public onError = false;
 
-  listTheme: any[] = [];
+  themes: any[] = [];
   selectedTheme: string = "";
   content: String = "";
   title: String = "";
@@ -26,13 +26,25 @@ export class CreateArticleComponent implements OnInit {
     private router: Router,
     private articleService: ArticleService,
     private _snackBar: MatSnackBar,
-    private authService: AuthService,
     private storageService: StorageService,
     private spinnerService: NgxSpinnerService,
+    private themeService: ThemeService,
   ) {
   }
 
   ngOnInit(): void {
+    this.getThemes();
+  }
+
+  getThemes() {
+    this.spinnerService.show();
+    this.themeService.getThemes()
+      .pipe((finalize(() => this.spinnerService.hide())))
+      .subscribe(
+        (response) => {
+          this.themes = response;
+        }
+      )
   }
 
   onSubmit() {
@@ -49,12 +61,15 @@ export class CreateArticleComponent implements OnInit {
       .pipe(finalize(() => this.spinnerService.hide()))
       .subscribe((response) => {
           this.router.navigate(['/session'])
-        this._snackBar.open('Article créé !', 'Fermer', {
-          duration: 3000
-        });
-      },
-      error => this.onError = true,
-    );
+          this._snackBar.open('Article créé !', 'Fermer', {
+            duration: 3000
+          });
+        },
+        error => this.onError = true,
+      );
   }
 
+  hideSideBar() {
+    document.getElementById('containerSideBar').style.visibility = 'hidden';
+  }
 }

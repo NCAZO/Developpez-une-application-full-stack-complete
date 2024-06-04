@@ -3,27 +3,39 @@
   <p style="color: white"> Chargement en cours... </p>
 </ngx-spinner>
 <div class="container">
-    <app-header-session></app-header-session>
 
-    <div class="content">
-
-        <div class="form">
-            <h2>Créer un nouvel article</h2>
-
-
-            <select name="" id="" aria-placeholder="dd">
-                <option value="" selected disabled hidden>d</option>
-                <option value="">dd</option>
-                <option value="">ddd</option>
-            </select>
-
-          <input [(ngModel)]="title" placeholder="Titre de l'article" type="text">
-
-          <textarea [(ngModel)]="content" cols="30" name="" placeholder="Contenu de l'article" rows="10"></textarea>
-
-            <div class="action-buttons">
-                <button (click)="onSubmit()">Créer</button>
-            </div>
-        </div>
+  <div class="containerSideBar" id="containerSideBar">
+    <div (click)="hideSideBar()" class="closeSideBar" id="closeSideBar"></div>
+    <div class="menu">
+      <div class="nav">
+        <a routerLink="/session">Articles</a>
+        <a routerLink="/themes">Themes</a>
+      </div>
+      <div class="me">
+        <img alt="user logo" height="512" ngSrc="assets/images/utilisateur.png" routerLink="/me" width="512">
+      </div>
     </div>
+  </div>
+
+  <app-header-session></app-header-session>
+
+  <div class="content">
+
+    <div class="form">
+      <h2>Créer un nouvel article</h2>
+      <select [(ngModel)]="selectedTheme" id="" name="">
+        <option *ngFor="let theme of themes" [value]="theme">
+          {{ theme.title }}
+        </option>
+      </select>
+
+      <input [(ngModel)]="title" placeholder="Titre de l'article" type="text">
+
+      <textarea [(ngModel)]="content" cols="30" name="" placeholder="Contenu de l'article" rows="10"></textarea>
+
+      <div class="action-buttons">
+        <button (click)="onSubmit()">Créer</button>
+      </div>
+    </div>
+  </div>
 </div>

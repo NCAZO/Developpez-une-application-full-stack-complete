@@ -22,4 +22,10 @@ export class ArticleService {
   createArticle(body: Article) {
     return this.http.post<any>(`${this.pathService}createArticle`, body);
   }
+
+  getArticleById(id: number) {
+    return this.http.get<any>(`${this.pathService}${id}`);
+  }
+
+
 }

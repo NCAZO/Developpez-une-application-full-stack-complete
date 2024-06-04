@@ -16,6 +16,7 @@ export class SessionComponent implements OnInit {
   public onError = false;
   date: Date;
   articles: Article[];
+  sortBy: string = "ASCdate";
 
   //#endregion VARIABLE
 
@@ -23,7 +24,8 @@ export class SessionComponent implements OnInit {
     private router: Router,
     private articleService: ArticleService,
     private spinnerService: NgxSpinnerService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.getArticle();
@@ -34,20 +36,34 @@ export class SessionComponent implements OnInit {
     this.articleService.getArticles()
       .pipe(finalize(() => this.spinnerService.hide()))
       .subscribe(
-      (response) => {
-        this.articles = response;
-        console.log('this.articles', this.articles)
-      },
-      error => this.onError = true,
-    );
+        (response) => {
+          this.articles = response;
+          console.log('this.articles', this.articles)
+        },
+        error => this.onError = true,
+      );
   }
 
-  createArticle(){
+  createArticle() {
     this.router.navigate(['/createArticle'])
   }
 
-
   hideSideBar() {
     document.getElementById('containerSideBar').style.visibility = 'hidden';
+  }
+
+  sortArticles() {
+    this.sortBy = this.sortBy === 'DESCdate' ? 'ASCdate' : 'DESCdate';
+
+    this.articles.sort((a, b) => {
+      const dateA = new Date(a.created_at);
+      const dateB = new Date(b.created_at);
+
+      if (this.sortBy === 'DESCdate') {
+        return dateB.getTime() - dateA.getTime(); // Descending order
+      } else {
+        return dateA.getTime() - dateB.getTime(); // Ascending order
+      }
+    });
   }
 }

@@ -36,4 +36,13 @@ public class ArticleController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Article> getArticleById(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(articleService.getArticleById(id), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

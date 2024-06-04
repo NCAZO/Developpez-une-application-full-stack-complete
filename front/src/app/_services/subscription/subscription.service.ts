@@ -23,8 +23,4 @@ export class SubscriptionService {
   unSubscribe(idSub: number) {
     return this.http.delete<any>(`${this.pathService}unSubscribe/` + idSub);
   }
-
-  // isAlreadySub(){
-  //   return this.http.get<any>(`${this.pathService}isAlreadySub`);
-  // }
 }

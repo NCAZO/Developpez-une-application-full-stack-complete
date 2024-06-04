@@ -23,6 +23,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ThemesComponent} from './pages/themes/themes.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {NgOptimizedImage} from "@angular/common";
+import {CommentComponent} from './pages/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {NgOptimizedImage} from "@angular/common";
     HeaderSessionComponent,
     MeComponent,
     ThemesComponent,
+    CommentComponent,
   ],
 
   imports: [

@@ -20,7 +20,7 @@ public class ThemeService {
         List<Theme> themes = (List<Theme>) themeRepository.findAll();
         List<ThemeResponse> themeResponses = new ArrayList<>();
         for (Theme theme : themes) {
-            themeResponses.add(new ThemeResponse(theme.getId(), theme.getContent(), theme.getTitle()));
+            themeResponses.add(new ThemeResponse(theme.getId(), theme.getTitle(), theme.getContent()));
         }
         return ResponseEntity.ok(themeResponses);
     }

@@ -40,32 +40,8 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-////	return one article
-//	public Article getArticle(Long id) {
-//		Optional<Article> article = articleRepository.findById(id);
-//
-//		if(article.isEmpty()) {
-//			throw new NotFoundException();
-//		}
-//		return article.get();
-//	}
-	
-//	Create an Article
-//	public Article createArticle(ArticleRequest articleRequest) throws Exception {
-//
-//		Theme theme = themeService.getById(articleRequest.getThemeId());
-////		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		if (user == null) {
-//	        throw new Exception("Utilisateur non authentifié !");
-//	    }
-//
-//		Article article = Article.builder()
-//				.theme(theme)
-//				.user(user)
-//				.content(articleRequest.getContent())
-//				.build();
-//		return articleRepository.save(article);
-//	}
+    public Article getArticleById(Long id) {
+        return articleRepository.findById(id).orElse(null);
+    }
 
 }

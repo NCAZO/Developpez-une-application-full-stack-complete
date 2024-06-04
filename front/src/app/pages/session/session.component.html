@@ -27,11 +27,11 @@
       <!-- <label for="">Trier par</label> -->
       <!-- Mettre boutton pour le label -->
       <div class="div" style="display: flex; align-items: baseline; margin-right: 50px">
-        <label for="" style="font-weight: 400">Trier par ↓</label>
+        <label (click)="sortArticles()" for="" style="font-weight: 400; cursor: pointer">Trier par ↓</label>
       </div>
     </div>
     <div class="cards">
-      <div *ngFor="let article of articles" class="card">
+      <div *ngFor="let article of articles" [routerLink]="['/comments', article.id]" class="card">
         <h2 class="title">{{ article.title }}</h2>
         <div class="infoUser">
           <label for="">{{ article.created_at | date:'dd/MM/yyyy' }}</label>
