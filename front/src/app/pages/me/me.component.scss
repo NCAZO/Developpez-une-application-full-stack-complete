@@ -159,11 +159,16 @@
 .container .subscriptionContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-top: 20px;
+  //align-items: center;
 }
 
-.container .subscriptionContent h2 {
+.container .subscriptionContent .header {
+  display: flex;
+  justify-content: center;
+}
+
+.container .subscriptionContent .header h2 {
   font-size: 1.8rem;
   margin-bottom: 30px;
 }
@@ -171,12 +176,11 @@
 .container .subscriptionContent .cards {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .container .subscriptionContent .cards .card {
-  flex: 1 0 30%;
-  /* 30px pour compenser la marge de 15px de chaque côté */
-  max-width: calc(30% - 30px);
+  width: 45%;
   margin: 15px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -189,28 +193,68 @@
   margin-bottom: 10px;
 }
 
-.container .subscriptionContent .cards .card .infoUser {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.container .subscriptionContent .cards .card .infoUser label {
-}
+//.container .subscriptionContent .cards .card .infoUser {
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: space-between;
+//  margin-bottom: 15px;
+//}
+//
+//.container .subscriptionContent .cards .card .infoUser label {
+//}
 
 .container .subscriptionContent .cards .card .content {
+  //margin-bottom: 20px;
+  //display: -webkit-box;
+  //-webkit-box-orient: vertical;
+  ///* Les lignes de texte à montrer */
+  //-webkit-line-clamp: 5;
+  //overflow: hidden;
+  //text-overflow: ellipsis;
+  //word-wrap: break-word;
+
   margin-bottom: 20px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  /* Les lignes de texte à montrer */
-  -webkit-line-clamp: 5;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
 }
 
+.container .subscriptionContent .cards .card button {
+  padding: 10px 20px;
+  background-color: #7453E8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+}
 
+@media (max-width: 1457px) {
+  .container .subscriptionContent .cards .card {
+    width: 44%;
+  }
+}
+
+@media (max-width: 1217px) {
+  .container .subscriptionContent .cards .card {
+    width: 43%;
+  }
+}
+
+@media (max-width: 1046px) {
+  .container .subscriptionContent .cards .card {
+    width: 42%;
+  }
+}
+
+@media (max-width: 917px) {
+  .container .subscriptionContent .cards .card {
+    width: 41%;
+  }
+}
+
+@media (max-width: 816px) {
+  .container .subscriptionContent .cards .card {
+    width: 40%;
+  }
+}
 
 @media (max-width: 768px) {
 
@@ -230,6 +274,10 @@
     position: absolute;
     top: 15px;
     left: 20px;
+  }
+
+  .container .subscriptionContent .cards .card {
+    width: 100%;
   }
 }
 

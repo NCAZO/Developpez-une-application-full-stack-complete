@@ -46,15 +46,15 @@
   <hr style="color: black; font-weight: bold">
 
   <div class="subscriptionContent">
+    <div class="header">
     <h2>Abonnements</h2>
-
+    </div>
     <div class="cards">
       <div *ngFor="let subscription of subscriptions" class="card">
         <h2 class="title">{{ subscription.theme.title }}</h2>
         <p class="content">{{ subscription.theme.content }}</p>
-        <button (click)="unSubscribe(subscription)">Se désabonner</button>
+        <button (click)="unSubscribe(subscription)" class="button">Se désabonner</button>
       </div>
     </div>
   </div>
-
 </div>
