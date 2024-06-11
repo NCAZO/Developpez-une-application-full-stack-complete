@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="cards">
-      <div *ngFor="let article of articles" [routerLink]="['/comments', article.id]" class="card">
+      <div *ngFor="let article of articles" [routerLink]="['/comment', article.id]" class="card">
         <h2 class="title">{{ article.title }}</h2>
         <div class="infoUser">
           <label for="">{{ article.created_at | date:'dd/MM/yyyy' }}</label>

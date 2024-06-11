@@ -23,7 +23,12 @@
     <div *ngFor="let theme of themes" class="card">
       <h2 class="title">{{ theme.title }}</h2>
       <p class="content">{{ theme.content }}</p>
-      <button (click)="subscribeTheme(theme)" class="button">S'abonner</button>
+      <div *ngIf="theme.isSubscribed" class="div">
+        <button (click)="subscribeTheme(theme)" [disabled]="true" class="button">Déjà abonné</button>
+      </div>
+      <div *ngIf="!theme.isSubscribed" class="div">
+        <button (click)="subscribeTheme(theme)" class="button">S'abonner</button>
+      </div>
     </div>
   </div>
 </div>

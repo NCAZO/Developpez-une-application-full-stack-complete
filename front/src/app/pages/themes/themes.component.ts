@@ -4,9 +4,9 @@ import {Theme} from "../../_models/theme/theme";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subscription} from "../../_models/subscription/subscription";
 import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs";
-import {SubscriptionService} from "../../_services/subscription/subscription.service";
+import {catchError, finalize, throwError} from "rxjs";
 import {StorageService} from "../../_services/storage/storage.service";
+import {SubscriptionService} from "../../_services/subscription/subscription.service";
 
 @Component({
   selector: 'app-themes',
@@ -26,23 +26,48 @@ export class ThemesComponent implements OnInit {
     private themeService: ThemeService,
     private _snackBar: MatSnackBar,
     private spinnerService: NgxSpinnerService,
-    private subService: SubscriptionService,
     private storageService: StorageService,
+    private subscriptionService: SubscriptionService,
   ) {
   }
 
   ngOnInit(): void {
     this.getThemes();
-    this.isAlreadySub();
   }
 
   getThemes() {
     this.spinnerService.show();
     this.themeService.getThemes()
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe
       ((response) => {
           this.themes = response;
+          this.getSubscription();
+        },
+        error => this.onError = true,
+      );
+  }
+
+  getSubscription() {
+    this.spinnerService.show();
+    this.subscriptionService.getSubscriptions()
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
+      .subscribe
+      ((response) => {
+          this.subscribes = response;
+          this.isAlreadySub();
         },
         error => this.onError = true,
       );
@@ -51,13 +76,19 @@ export class ThemesComponent implements OnInit {
   subscribeTheme(theme: Theme) {
     this.spinnerService.show();
     this.themeService.subscribeTheme(theme.id)
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe(
         (response: any) => {
-          this.isAlreadySub();
           this._snackBar.open('Abonnement réussi !', 'Fermer', {
             duration: 3000
           });
+          this.getThemes();
         },
         (error: any) => {
           this._snackBar.open('Abonnement échoué !', 'Fermer', {
@@ -72,19 +103,15 @@ export class ThemesComponent implements OnInit {
   }
 
   private isAlreadySub() {
-    // this.spinnerService.show();
-    // this.subService.getSubscriptions()
-    //   .pipe(finalize(() => this.spinnerService.hide()) )
-    // .subscribe(
-    //   (response) => {
-    //     this.subscribes = response;
-    //     console.log('sub', this.subscribes);
-    //     for(let i =0; i < this.subscribes.length; i++){
-    //       if(this.subscribes[i].idUser === this.storageService.getUser().id && this.subscribes[i].){
-    //         console.log('ici')
-    //       }
-    //     }
-    //   }
-    // )
+    let user = this.storageService.getUser();
+    let userSubs: Theme[] = [];
+    this.themes.forEach((theme) => {
+      this.subscribes.forEach((sub) => {
+        if (user.id === sub.idUser && sub.theme.id === theme.id) {
+          userSubs.push(theme);
+          theme.isSubscribed = true;
+        }
+      });
+    });
   }
 }

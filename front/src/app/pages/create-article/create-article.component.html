@@ -21,17 +21,25 @@
 
   <div class="content">
 
-    <div class="form">
-      <h2>Créer un nouvel article</h2>
-      <select [(ngModel)]="selectedTheme" id="" name="">
-        <option *ngFor="let theme of themes" [value]="theme">
+    <div [formGroup]="form" class="form">
+      <div class="back">
+        <img [routerLink]="['/session']" alt="" src="assets/images/fleche.png">
+        <h2>Créer un nouvel article</h2>
+        <label for=""></label>
+      </div>
+
+      <select formControlName="selectValueTheme" id="" name="">
+        <option *ngFor="let theme of themes" [value]="theme.id">
           {{ theme.title }}
         </option>
       </select>
 
-      <input [(ngModel)]="title" placeholder="Titre de l'article" type="text">
 
-      <textarea [(ngModel)]="content" cols="30" name="" placeholder="Contenu de l'article" rows="10"></textarea>
+      <!--      <input [(ngModel)]="title" placeholder="Titre de l'article" type="text">-->
+      <input formControlName="title" placeholder="Titre de l'article" type="text">
+
+      <!--      <textarea [(ngModel)]="content" cols="30" name="" placeholder="Contenu de l'article" rows="10"></textarea>-->
+      <textarea cols="30" formControlName="content" name="" placeholder="Contenu de l'article" rows="10"></textarea>
 
       <div class="action-buttons">
         <button (click)="onSubmit()">Créer</button>

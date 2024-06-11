@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.dto.response;
 
+import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.models.User;
 
 import java.util.Date;
@@ -8,18 +9,20 @@ public class ArticleResponse {
     private Long id;
     private String title;
     private String content;
+    private Theme theme;
     private Date created_at;
     private User user;
 
     public ArticleResponse() {
     }
 
-    public ArticleResponse(Long id, User user, String content, String title, Date created_at) {
+    public ArticleResponse(Long id, User user, String content, Theme theme, String title, Date created_at) {
         this.id = id;
         this.user = user;
         this.content = content;
         this.title = title;
         this.created_at = created_at;
+        this.theme = theme;
     }
 
     public Long getId() {
@@ -60,5 +63,13 @@ public class ArticleResponse {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 }

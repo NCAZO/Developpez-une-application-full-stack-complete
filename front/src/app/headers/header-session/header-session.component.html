@@ -2,11 +2,15 @@
   <div class="header">
     <img alt="Logo" src="../../../assets/images/logo_p6.png">
     <div class="header-content">
-      <button (click)="goArticle()">Articles</button>
+      <button [routerLinkActiveOptions]={exact:true} [routerLink]="['/session']" routerLinkActive="active-link">
+        Articles
+      </button>
 
-      <button (click)="goTheme()">Thèmes</button>
+      <button [routerLinkActiveOptions]={exact:true} [routerLink]="['/themes']" routerLinkActive="active-link">Thèmes
+      </button>
 
-      <img (click)="me()" alt="user" src="../../../assets/images/utilisateur.png">
+      <img [routerLinkActiveOptions]={exact:true} [routerLink]="['/me']" alt="user" routerLinkActive="active-link"
+           src="../../../assets/images/utilisateur.png">
     </div>
 
     <div class="sideMenu">

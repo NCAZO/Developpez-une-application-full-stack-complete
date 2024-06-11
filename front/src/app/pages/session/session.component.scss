@@ -1,7 +1,12 @@
+.container {
+  overflow: hidden;
+}
+
 .container .content {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  //overflow: ;
 }
 
 .container .content .content-header {

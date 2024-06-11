@@ -17,8 +17,11 @@ public class Article {
 
     @Column(name = "content",
             columnDefinition = "TEXT")
-//    @Column(name = "content")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "id_theme")
+    private Theme theme;
 
     @Column(name = "created_at", updatable = false)
     private Date created_at;
@@ -30,12 +33,13 @@ public class Article {
     public Article() {
     }
 
-    public Article(Long id, String title, String content, Date created_at, User user) {
+    public Article(Long id, String title, String content, Theme theme, Date created_at, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.created_at = created_at;
         this.user = user;
+        this.theme = theme;
     }
 
     public User getUser() {
@@ -76,5 +80,13 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 }

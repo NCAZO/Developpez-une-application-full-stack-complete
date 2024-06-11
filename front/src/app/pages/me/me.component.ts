@@ -8,7 +8,7 @@ import {User} from "../../_models/user/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SubscriptionService} from "../../_services/subscription/subscription.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs";
+import {catchError, finalize, throwError} from "rxjs";
 
 @Component({
   selector: 'app-me',
@@ -27,11 +27,10 @@ export class MeComponent implements OnInit {
     password: ['', [Validators.required,]],
     confirmPassword: ['', [Validators.required,]],
   });
+
   private user = this.authService.me().subscribe(
     (response: User) => {
-
       this.currentUser = response;
-
       this.form.controls['name'].setValue(response.username);
       this.form.controls['email'].setValue(response.email);
     },
@@ -76,7 +75,13 @@ export class MeComponent implements OnInit {
       updateUserRequest.id = this.currentUser.id
       this.spinnerService.show();
       this.meService.saveUserInfo(updateUserRequest)
-        .pipe(finalize(() => this.spinnerService.hide()))
+        .pipe(
+          catchError(error => {
+            this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+            return throwError(error);
+          }),
+          finalize(() => this.spinnerService.hide())
+        )
         .subscribe((updatedUser: User) => {
             this.currentUser = updatedUser;
             this._snackBar.open('Informations sauvegardées !', 'Fermer', {
@@ -111,24 +116,34 @@ export class MeComponent implements OnInit {
   getSubscription() {
     this.spinnerService.show();
     this.subscriptionService.getSubscriptions()
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe(
-      (subscriptions: any[]) => {
-        this.subscriptions = subscriptions;
-        console.log('this.subscriptions', this.subscriptions);
-      });
+        (subscriptions: any[]) => {
+          this.subscriptions = subscriptions;
+        });
   }
 
   unSubscribe(subscription: any) {
     this.spinnerService.show();
     this.subscriptionService.unSubscribe(subscription.id)
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe(
-      (response: any) => {
-        this.getSubscription();
-        console.log('res', response);
-      }
-    )
+        (response: any) => {
+          this.getSubscription();
+        }
+      )
   }
 
   hideSideBar() {

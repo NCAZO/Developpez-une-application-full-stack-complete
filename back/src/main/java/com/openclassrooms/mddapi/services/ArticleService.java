@@ -27,7 +27,7 @@ public class ArticleService {
         List<Article> articles = (List<Article>) articleRepository.findAll();
         List<ArticleResponse> articleResponses = new ArrayList<>();
         for (Article article : articles) {
-            articleResponses.add(new ArticleResponse(article.getId(), article.getUser(), article.getContent(), article.getTitle(), article.getCreated_at()));
+            articleResponses.add(new ArticleResponse(article.getId(), article.getUser(), article.getContent(), article.getTheme(), article.getTitle(), article.getCreated_at()));
         }
         return ResponseEntity.ok(articleResponses);
     }
@@ -36,7 +36,7 @@ public class ArticleService {
 
         Long time = Date.from(Instant.now()).getTime();
 
-        Article article = new Article(null, articleRequest.getTitle(), articleRequest.getContent(), new Date(time), articleRequest.getUser());
+        Article article = new Article(null, articleRequest.getTitle(), articleRequest.getContent(), articleRequest.getTheme(), new Date(time), articleRequest.getUser());
         return articleRepository.save(article);
     }
 

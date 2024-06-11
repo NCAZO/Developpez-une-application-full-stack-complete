@@ -16,18 +16,6 @@ export class HeaderSessionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  me() {
-    this.router.navigate(['/me'])
-  }
-
-  goArticle() {
-    this.router.navigate(['/session']);
-  }
-
-  goTheme() {
-    this.router.navigate(['/themes']);
-  }
-
   menuToggle() {
     const toggleMenu = document.querySelector('.menu');
     toggleMenu.classList.toggle('active');

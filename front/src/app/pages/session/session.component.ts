@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import {ArticleService} from "../../_services/article/article.service";
 import {Article} from "../../_models/article/article";
 import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs";
+import {catchError, finalize, throwError} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-session',
@@ -24,6 +25,7 @@ export class SessionComponent implements OnInit {
     private router: Router,
     private articleService: ArticleService,
     private spinnerService: NgxSpinnerService,
+    private _snackBar: MatSnackBar,
   ) {
   }
 
@@ -34,11 +36,16 @@ export class SessionComponent implements OnInit {
   getArticle() {
     this.spinnerService.show();
     this.articleService.getArticles()
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe(
         (response) => {
           this.articles = response;
-          console.log('this.articles', this.articles)
         },
         error => this.onError = true,
       );

@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit {
     this.authService.register(registerRequest)
       .pipe(
         catchError(error => {
-          this._snackBar.open('Enregistrement impossible.', 'Fermer', {duration: 3000});
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
           return throwError(error);
         }),
         finalize(() => this.spinnerService.hide())
@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
           this.authService.login(registerRequest)
             .pipe(
               catchError(error => {
-                this._snackBar.open('Identification impossible.', 'Fermer', {duration: 3000});
+                this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
                 return throwError(error);
               })
             )

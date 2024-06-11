@@ -8,7 +8,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../../_models/user/user";
 import {StorageService} from "../../_services/storage/storage.service";
 import {NgxSpinnerService} from "ngx-spinner";
-import {finalize} from "rxjs";
+import {catchError, finalize, throwError} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -49,29 +49,28 @@ export class LoginComponent implements OnInit {
     }
     this.spinnerService.show();
     this.authService.login(loginRequest)
-      .pipe(finalize(() => this.spinnerService.hide()))
+      .pipe(
+        catchError(error => {
+          this._snackBar.open(error.error.message, 'Fermer', {duration: 3000});
+          return throwError(error);
+        }),
+        finalize(() => this.spinnerService.hide())
+      )
       .subscribe(
-      (response) => {
-        localStorage.setItem('token', response.token);
-
-
-        this.authService.me()
-          .subscribe((user: User) => {
-          this.sessionService.logIn(user);
-          this.storageService.saveUser(user);
-          this.router.navigate(['/session']);
-          this._snackBar.open('Connecté', 'Fermer', {
-            duration: 3000
-          });
-        });
-      },
-      error => this.onError = true,
-    );
-    if (this.onError) {
-      this._snackBar.open('Connexion Échouée !', 'Fermer', {
-        duration: 3000
-      });
-    }
+        (response) => {
+          localStorage.setItem('token', response.token);
+          this.authService.me()
+            .subscribe((user: User) => {
+              this.sessionService.logIn(user);
+              this.storageService.saveUser(user);
+              this.router.navigate(['/session']);
+              this._snackBar.open('Connecté', 'Fermer', {
+                duration: 3000
+              });
+            });
+        },
+        error => this.onError = true,
+      );
   }
 
   private validateForm(loginRequest: LoginRequest): string[] {
@@ -85,7 +84,5 @@ export class LoginComponent implements OnInit {
       return errors;
     }
     return errors;
-
-
   }
 }

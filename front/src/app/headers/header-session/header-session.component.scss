@@ -32,6 +32,10 @@
   margin-right: 50px;
 }
 
+.container .header .header-content button .active-link {
+  color: red !important;
+}
+
 .container .header .header-content button::after {
   content: '';
   position: absolute;
