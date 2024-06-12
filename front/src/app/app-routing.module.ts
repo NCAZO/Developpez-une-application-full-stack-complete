@@ -21,7 +21,6 @@ const routes: Routes = [
   {path: 'me', component: MeComponent, canActivate: [AuthGuard]},
   {path: 'themes', component: ThemesComponent, canActivate: [AuthGuard]},
   {path: 'comment/:id', component: CommentComponent, canActivate: [AuthGuard]},
-
 ];
 
 @NgModule({
